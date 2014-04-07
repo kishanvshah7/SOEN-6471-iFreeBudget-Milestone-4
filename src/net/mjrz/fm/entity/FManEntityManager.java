@@ -55,6 +55,7 @@ import org.hibernate.Session;
  * 
  */
 public class FManEntityManager {
+	private FManAccountEntityManager fManAccountEntityManager = new FManAccountEntityManager();
 	private static Logger logger = Logger.getLogger(FManEntityManager.class
 			.getName());
 
@@ -241,22 +242,7 @@ public class FManEntityManager {
 	}
 
 	public void addAccount(User u, Account a) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			long id = IDGenerator.getInstance().generateId(s);
-			a.setAccountId(id);
-			s.save(a);
-			s.getTransaction().commit();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		fManAccountEntityManager.addAccount(u, a);
 	}
 
 	public void addNetWorthHistory(NetWorthHistory u) throws Exception {
@@ -331,56 +317,15 @@ public class FManEntityManager {
 	}
 
 	public Account getAccount(Session s, long uid, long aid) throws Exception {
-		try {
-			String query = "select R from Account R where R.accountId=? and R.ownerId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, aid);
-			q.setLong(1, uid);
-			Account a = (Account) q.uniqueResult();
-			return a;
-		}
-		catch (Exception e) {
-			throw e;
-		}
+	return fManAccountEntityManager.getAccount(s,uid,aid);
+          
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Account> getAccount(long uid, int acctType, String acctName,
 			String acctNumber) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-
-			String query = "select R from Account R where R.ownerId=? and "
-					+ "R.accountType=? and (R.accountName=? or R.accountNumber=?)";
-
-			if (acctNumber == null || acctNumber.trim().length() == 0) {
-				query = "select R from Account R where R.ownerId=? and "
-						+ "R.accountType=? and R.accountName=?";
-			}
-
-			Query q = s.createQuery(query);
-
-			q.setLong(0, uid);
-			q.setInteger(1, acctType);
-			q.setParameter(2, acctName);
-
-			if (acctNumber != null && acctNumber.trim().length() > 0) {
-				q.setParameter(3, acctNumber);
-			}
-
-			List<Account> a = q.list();
-			s.getTransaction().commit();
-			return a;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+        return fManAccountEntityManager.getAccount(uid,acctType,acctName,acctNumber);
+		
 	}
 
 	/**
@@ -390,25 +335,8 @@ public class FManEntityManager {
 	 * data since it will be done automatically
 	 */
 	public Account getAccount(long uid, String acctName) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from Account R where R.ownerId=? and R.accountName=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			q.setString(1, CHelper.encrypt(acctName));
-			Account a = (Account) q.uniqueResult();
-			s.getTransaction().commit();
-			return a;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+             return fManAccountEntityManager.getAccount(uid,acctName);
+		
 	}
 
 	/**
@@ -419,186 +347,52 @@ public class FManEntityManager {
 	 */
 	public Account getAccountFromNumber(long uid, String acctNum)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from Account R where R.ownerId=? and R.accountNumber=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			q.setString(1, CHelper.encrypt(acctNum));
-			Account a = (Account) q.uniqueResult();
-			s.getTransaction().commit();
-			return a;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+             return fManAccountEntityManager.getAccountFromNumber(uid,acctNum);
+		
 	}
 
 	public Account getAccountFromName(long uid, int acctType, String acctName)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from Account R where R.ownerId=? and R.accountType=? and R.accountName=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			q.setInteger(1, acctType);
-			q.setString(2, acctName);
-			Account a = (Account) q.uniqueResult();
-			s.getTransaction().commit();
-			return a;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+            return fManAccountEntityManager.getAccountFromName(uid,acctType,acctName);
+		
 	}
 
 	public Account getAccount(long uid, long aid) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from Account R where R.accountId=? and R.ownerId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, aid);
-			q.setLong(1, uid);
-			Account a = (Account) q.uniqueResult();
-			s.getTransaction().commit();
-			return a;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		 return fManAccountEntityManager.getAccount(uid,aid);
 	}
 
 	public List getAccountNames(User u, int accountType) throws Exception {
-		Session s = null;
-		try {
-			String query = "select A.accountName from Account A where A.ownerId=? and A.accountType=?";
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			Query q = s.createQuery(query);
-			q.setLong(0, u.getUid());
-			q.setInteger(1, accountType);
-			List ret = q.list();
-			s.getTransaction().commit();
-			return ret;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+            return fManAccountEntityManager.getAccountNames(u,accountType);
+		
 	}
 
 	public List getAccountNames(User u) throws Exception {
-		return getAccountNames(u.getUid());
+		return fManAccountEntityManager.getAccountNames(u);
 	}
 
 	public List getAccountNames(long uid) throws Exception {
-		Session s = null;
-		try {
-			String query = "select A.accountName from Account A where A.ownerId=?";
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			List ret = q.list();
-			s.getTransaction().commit();
-			return ret;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+            return fManAccountEntityManager.getAccountNames(uid);
+		
 	}
 
 	public List getAccountsForUser(long uid) throws Exception {
-		Session s = null;
-		try {
-			String query = "select R from Account R where R.ownerId=? order by R.accountType, R.accountName";
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			return q.list();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.getAccountsForUser(uid);
 	}
 
 	public List getAccountsForUser(User u) throws Exception {
-		return getAccountsForUser(u.getUid());
+		return fManAccountEntityManager.getAccountsForUser(u);
 	}
 
 	public List getAccountsForUser(User u, int acctType) throws Exception {
-		return getAccountsForUser(u.getUid(), acctType);
+		return fManAccountEntityManager.getAccountsForUser(u,acctType);
 	}
 
 	public List getAccountsForUser(long uid, int acctType) throws Exception {
-		Session s = null;
-		try {
-			String query = "select R from Account R where R.ownerId=? and R.accountType=?";
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			q.setInteger(1, acctType);
-			List<?> ret = q.list();
-			return ret;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.getAccountsForUser(uid,acctType);
 	}
 
 	public int deleteAccount(long uid, long accountid) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-
-			String query = "delete from Account R where R.accountId=?";
-			s.beginTransaction();
-			int r = deleteTransactions(s, uid, accountid);
-			Query q = s.createQuery(query);
-			q.setLong(0, accountid);
-			r = q.executeUpdate();
-			s.getTransaction().commit();
-			return r;
-		}
-		catch (Exception e) {
-			s.getTransaction().rollback();
-			throw e;
-		}
+		return fManAccountEntityManager.deleteAccount(uid,accountid);
 	}
 
 	/*
@@ -992,328 +786,60 @@ public class FManEntityManager {
 	}
 
 	public List getAccountCategories(long uid) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from AccountCategory R where R.uid=? order by R.categoryId";
-
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			return q.list();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+            return fManAccountEntityManager.getAccountCategories(uid);
+		
 	}
 
 	public List getChildrenAccountCategories(long uid, long catid)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from AccountCategory R where R.uid=? and R.parentCategoryId=? order by R.categoryId";
-
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			q.setLong(1, catid);
-			return q.list();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+             return fManAccountEntityManager.getChildrenAccountCategories(uid,catid);
+		
 	}
 
 	public Long getNextAccountCategoryId() throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			Long id = IDGenerator.getInstance().generateId(s);
-			s.getTransaction().commit();
-			return id;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.getNextAccountCategoryId();
 	}
 
 	public boolean addAccountCategory(AccountCategory c) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-
-			if (c.getCategoryId() == null) {
-				long id = IDGenerator.getInstance().generateId(s);
-				// long id = IDGenerator.getInstance().generateId(s,
-				// "AccountCategory", "categoryId");
-				c.setCategoryId(id);
-			}
-			java.io.Serializable ret = s.save(c);
-			// System.out.println(c.getCategoryId() + ":" + c.getCategoryName()
-			// + " %% ");
-			s.getTransaction().commit();
-			return ret != null;
-		}
-		catch (Exception e) {
-			s.getTransaction().rollback();
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.addAccountCategory(c);
 	}
 
 	public void updateAccountCategory(AccountCategory c) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-
-			if (c.getCategoryId() == null)
-				throw new NullPointerException();
-
-			s.update(c);
-			s.getTransaction().commit();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		fManAccountEntityManager.updateAccountCategory(c);
 	}
 
 	public boolean deleteAccountCategory(AccountCategory c) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			boolean result = true;
-
-			String query = "delete from AccountCategory R where R.categoryId=? and R.uid=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, c.getCategoryId());
-			q.setLong(1, c.getUid());
-			int r = q.executeUpdate();
-			if (r != 1) {
-				s.getTransaction().rollback();
-			}
-			else {
-				s.getTransaction().commit();
-			}
-			return result;
-		}
-		catch (Exception e) {
-			s.getTransaction().rollback();
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.deleteAccountCategory(c);
 	}
 
 	public boolean deleteAccountCategory(ArrayList<AccountCategory> list)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			boolean result = true;
-
-			String query = "delete from AccountCategory R where R.categoryId=? and R.uid=?";
-			Query q = s.createQuery(query);
-			for (AccountCategory c : list) {
-
-				/*
-				 * First move all accounts with this categoryid to parents
-				 * categoryid
-				 */
-				int u = updateAccountForCategory(s, c.getCategoryId(),
-						c.getParentCategoryId());
-				if (u == 0)
-					continue;
-
-				q.setLong(0, c.getCategoryId());
-				q.setLong(1, c.getUid());
-				int r = q.executeUpdate();
-				if (r != 1) {
-					result = false;
-					break;
-				}
-			}
-			if (result)
-				s.getTransaction().commit();
-			else {
-				s.getTransaction().rollback();
-			}
-			return result;
-		}
-		catch (Exception e) {
-			s.getTransaction().rollback();
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.deleteAccountCategory(list);
 	}
 
-	private int updateAccountForCategory(Session s, Long oldcategory,
-			Long newcategory) throws Exception {
-		try {
-			if (oldcategory == null || newcategory == null)
-				return -1;
-
-			String query = "update Account R set R.categoryId=? where R.categoryId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, newcategory);
-			q.setLong(1, oldcategory);
-			int r = q.executeUpdate();
-			return r;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-	}
+	
 
 	public int updateAccountForCategory(Long accountId, Long newcategory)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-
-			if (accountId == null || newcategory == null)
-				return -1;
-
-			String query = "update Account R set R.categoryId=? where R.accountId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, newcategory);
-			q.setLong(1, accountId);
-			int r = q.executeUpdate();
-			s.getTransaction().commit();
-			return r;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return fManAccountEntityManager.updateAccountForCategory(accountId,newcategory);
 	}
 
 	public void updateAccountNumber(Long accountid, String anumber)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-
-			Account a = (Account) s
-					.load(Account.class, Long.valueOf(accountid));
-			a.setAccountNumber(anumber);
-			// String query =
-			// "update Account R set R.accountNumber=? where R.accountId=?";
-			// Query q = s.createQuery(query);
-			// q.setString(0, anumber);
-			// q.setLong(1, accountid);
-			// q.executeUpdate();
-			s.getTransaction().commit();
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		fManAccountEntityManager.updateAccountNumber(accountid, anumber);
 	}
 
 	public static boolean isCategoryPopulated(long catid) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R.accountId from Account R where R.categoryId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, catid);
-			List l = q.list();
-			s.getTransaction().commit();
-
-			if (l == null)
-				return false;
-
-			return l.size() != 0;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return FManAccountEntityManager.isCategoryPopulated(catid);
 	}
 
 	public static String getAccountNameFromId(long aid, boolean closeSession)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R.accountName from Account R where R.accountId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, aid);
-			String aname = (String) q.uniqueResult();
-			return aname;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (closeSession)
-				if (s != null)
-					HibernateUtils.closeSession();
-		}
+		return FManAccountEntityManager.getAccountNameFromId(aid,closeSession);
 	}
 
 	public static String getAccountName(long aid) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R.accountName from Account R where R.accountId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, aid);
-			String aname = (String) q.uniqueResult();
-			s.getTransaction().commit();
-			return aname;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return FManAccountEntityManager.getAccountName(aid);
 	}
 
 	public static String getCategoryName(long aid) throws Exception {
@@ -1339,82 +865,24 @@ public class FManEntityManager {
 
 	@SuppressWarnings("unchecked")
 	public static List<AccountCategory> getRootCategoies() throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R from AccountCategory R where R.parentCategoryId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, -1);
-			List<AccountCategory> ret = (List<AccountCategory>) q.list();
-			s.getTransaction().commit();
-			return ret;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return FManAccountEntityManager.getRootCategoies();
 	}
-
+        public int updateAccountForCategory(Session s, Long oldcategory,
+			Long newcategory) throws Exception {
+		return fManAccountEntityManager.updateAccountForCategory(s,oldcategory,newcategory);
+	}
 	public static AccountCategory getRootCategory(String type) throws Exception {
-		List<AccountCategory> l = getRootCategoies();
-		if (l == null || l.size() == 0) {
-			return null;
-		}
-		for (AccountCategory c : l) {
-			if (c.getCategoryName().equals(type)) {
-				return c;
-			}
-		}
-		return null;
+		return FManAccountEntityManager.getRootCategory(type);
 	}
 
 	public static String getAccountNumber(long aid) throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R.accountNumber from Account R where R.accountId=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, aid);
-			String anum = (String) q.uniqueResult();
-			s.getTransaction().commit();
-			return anum;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+		return FManAccountEntityManager.getAccountNumber(aid);
 	}
 
 	public static boolean accountExists(long uid, int acctType, String acctName)
 			throws Exception {
-		Session s = null;
-		try {
-			s = HibernateUtils.getSessionFactory().getCurrentSession();
-			s.beginTransaction();
-			String query = "select R.accountId from Account R where R.ownerId=? and R.accountType=? and R.accountName=?";
-			Query q = s.createQuery(query);
-			q.setLong(0, uid);
-			q.setInteger(1, acctType);
-			q.setString(2, acctName);
-			Long a = (Long) q.uniqueResult();
-			s.getTransaction().commit();
-			return a != null;
-		}
-		catch (Exception e) {
-			throw e;
-		}
-		finally {
-			if (s != null)
-				HibernateUtils.closeSession();
-		}
+            return FManAccountEntityManager.accountExists(uid,acctType,acctName);
+		
 	}
 
 	public static double getCurrentBalance(long aid) throws Exception {
