@@ -24,7 +24,8 @@ public class ValidateTxAction extends AddTransactionAction {
 			Account to = em.getAccount(s, u.getUid(), t.getToAccountId());
 
 			ActionResponse resp = new ActionResponse();
-			super.validate(s, t, from, to, resp);
+                        TransactionValidation tv=new  TransactionValidation ();
+			tv.validate(s, t, from, to, resp);
 
 			return resp;
 		}

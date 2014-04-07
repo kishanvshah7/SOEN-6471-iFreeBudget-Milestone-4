@@ -103,40 +103,7 @@ public class AddNestedTransactionsAction  extends TransactionValidation {
 		return false;
 	}
 
-	public void validate(Session s, Transaction t, Account from, Account to,
-			ActionResponse resp) throws Exception {
-		String fitid = t.getFitid();
-		if (fitid != null && fitid.trim().length() > 0) {
-			if (em.fitIdExists(s, t.getInitiatorId(), t.getFromAccountId(),
-					t.getToAccountId(), t.getFitid())) {
-				resp.setErrorCode(ActionResponse.TX_EXISTS_ERROR);
-				return;
-			}
-		}
-		/* Basic error checking... */
-		if (t.getTxAmount().doubleValue() < 0) {
-			resp.setErrorCode(ActionResponse.INVALID_TX);
-			resp.setErrorMessage("Transaction amount must be greater than zero");
-			return;
-		}
-		if (from.getAccountId() == to.getAccountId()) {
-			resp.setErrorCode(ActionResponse.INVALID_TX);
-			resp.setErrorMessage("To and from accounts are same");
-			return;
-		}
-		if (from.getStatus() != AccountTypes.ACCOUNT_ACTIVE) {
-			resp.setErrorCode(ActionResponse.INACTIVE_ACCOUNT_OPERATION);
-			resp.setErrorMessage("Account is locked [" + from.getAccountName()
-					+ "]");
-			return;
-		}
-		if (to.getStatus() != AccountTypes.ACCOUNT_ACTIVE) {
-			resp.setErrorCode(ActionResponse.INACTIVE_ACCOUNT_OPERATION);
-			resp.setErrorMessage("Account is locked [" + to.getAccountName()
-					+ "]");
-			return;
-		}
-	}
+	
 
 	private ActionResponse addTransactions(User u,
 			ArrayList<Transaction> txList, boolean isUpdate,
