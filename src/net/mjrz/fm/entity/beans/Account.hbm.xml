@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.Account" table="TB_ACCOUNT">
+		<id name="accountId" column="accountId" type="long">
+		</id>
+		<property name="ownerId" type="long"/>
+		<property name="accountType" type="int"/>
+		<property name="accountParentType" type="int"/>
+		<property name="status" type="int"/>
+
+		<property name="accountName" type="net.mjrz.fm.entity.beans.types.EString"> 
+			<column name="accountName" sql-type="varchar(512)" /> 
+		</property>
+
+		<property name="accountNumber" type="net.mjrz.fm.entity.beans.types.EString">
+			<column name="accountNumber" sql-type="varchar(512)" />
+		</property>
+
+		<property name="accountNotes" type="java.lang.String">
+			<column name="accountNotes" sql-type="varchar(1024)"/>
+		</property> 
+
+		<property name="startDate" type="java.util.Date"/> 
+				
+		<property name="startingBalance" type="net.mjrz.fm.entity.beans.types.EDouble">
+			<column name="startingBalance" sql-type="varchar(512)" />
+		</property>
+		
+		<property name="currentBalance" type="net.mjrz.fm.entity.beans.types.EDouble">
+			<column name="currentBalance" sql-type="varchar(512)" />
+		</property>
+
+		<property name="highBalance" type="net.mjrz.fm.entity.beans.types.EDouble">
+			<column name="highBalance" sql-type="varchar(512)" />
+		</property>
+
+		<property name="highBalanceDate" type="java.util.Date"/>
+		<property name="categoryId" type="long"/>
+	</class>
+</hibernate-mapping>

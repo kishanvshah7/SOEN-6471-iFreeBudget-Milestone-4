@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+	
+<project name="FinanceManager" default="all" basedir=".">
+
+
+<target name="init">
+   <property name="dirs.base" value="${basedir}"/>
+</target>
+
+<!-- Main target -->
+<target name="all" depends="init, clean, compile"/>
+
+<target name="clean" depends="init">
+   <delete file="fmbin.jar"/>
+   <delete file="fm.tar"/>
+   <delete dir="${dirs.base}/bin"/>
+   <delete dir="${dirs.base}/fm"/>
+</target>
+
+<target name="compile" depends="init">
+   <mkdir dir="${dirs.base}/bin"/>
+   <javac srcdir="${dirs.base}" destdir="${dirs.base}/bin" classpath="${classpath}" debug="on" debuglevel="lines">
+   <classpath>
+      <pathelement path="${classpath}"/>
+      <fileset dir="${dirs.base}/lib">
+        <include name="**/*.jar"/>
+      </fileset>
+   </classpath>
+   </javac>
+</target>
+
+<target name="package" depends="compile">
+   <delete file="${dirs.base}/fmbin.jar"/>
+   <copy file="${dirs.base}/hibernate.cfg.xml" todir="${dirs.base}/bin"/>
+   <copy file="${dirs.base}/log4j.properties" todir="${dirs.base}/bin"/>
+   <copy file="${dirs.base}/errormsgs.properties" todir="${dirs.base}/bin"/>
+   <copy file="${dirs.base}/addrbookheader.properties" todir="${dirs.base}/bin"/>
+   <copy file="${dirs.base}/splash.jpg" todir="${dirs.base}/bin"/>
+   <copy file="${dirs.base}/LICENSE.txt" todir="${dirs.base}/bin"/>
+
+   <copy todir="${dirs.base}/bin/net/mjrz/fm/entity/beans">
+     <fileset dir="${dirs.base}/net/mjrz/fm/entity/beans">
+       <include name="**/*.xml"/>
+     </fileset>
+   </copy>
+   <!--
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Account.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Transaction.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/User.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/NetWorthHistory.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/AccountCategory.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Contact.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/ONLBDetails.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Portfolio.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/PortfolioEntry.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/CurrencyMonitor.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Alert.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/FutureTransaction.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/TT.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Favourites.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/TxDecorator.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Budget.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/BudgetedAccount.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Prefs.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/Attachment.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   <copy file="${dirs.base}/net/mjrz/fm/entity/beans/AttachmentRef.hbm.xml" todir="${dirs.base}/bin/net/mjrz/fm/entity/beans"/>
+   -->
+   <jar destfile="${dirs.base}/fmbin.jar" basedir="${dirs.base}/bin">
+      <manifest>
+         <attribute name="Main-Class" value="net.mjrz.fm.Main"/>
+      </manifest>
+   </jar>    
+</target>
+
+<target name="dist" depends="package">
+	   <mkdir dir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/fmbin.jar" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/run.sh" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/rrun.sh" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/run_fedora.sh" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/run.bat" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/README.txt" todir="${dirs.base}/fm"/>	   
+		<copy file="${dirs.base}/LICENSE.txt" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/CHANGELOG.txt" todir="${dirs.base}/fm"/>
+		<copy file="${dirs.base}/splash.jpg" todir="${dirs.base}/fm"/>
+		<copy todir="${dirs.base}/fm/icons">
+			<fileset dir="${dirs.base}/icons"/>
+		</copy>	   
+		<copy todir="${dirs.base}/fm/resources">
+			<fileset dir="${dirs.base}/resources"/>
+		</copy>	   
+		<copy todir="${dirs.base}/fm/lib">
+			<fileset dir="${dirs.base}/lib"/>
+		</copy>
+</target>
+</project>

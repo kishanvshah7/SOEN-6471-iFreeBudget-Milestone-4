@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.scheduler.db.entities.TaskSchedule" table="TB_TASKSCHEDULE">
+		<id name="id" column="id" type="long">
+			<generator class="native"/>
+		</id>
+		<property name="nextRunTime" type="java.util.Date"/>
+		<property name="lastRunTime" type="java.util.Date"/>
+		<property name="repeatType" type="java.lang.Integer"/>
+		<property name="step" type="java.lang.Integer"/>
+
+		<set name="constraints" inverse="false" cascade="all" lazy="false">
+			<key column="budgetid" />
+			<one-to-many class="net.mjrz.scheduler.db.entities.ScheduleConstraint"/>
+		</set>
+
+	</class>
+</hibernate-mapping>

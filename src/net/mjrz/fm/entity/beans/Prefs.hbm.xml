@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.Prefs" table="TB_PREFS">
+		<id name="id" column="id" type="long">
+		</id>
+		<property name="uid" type="long"/>
+		<property name="propName" unique="true" type="java.lang.String"/>
+		<property name="propValue" type="java.lang.String"/>
+	</class>
+</hibernate-mapping>

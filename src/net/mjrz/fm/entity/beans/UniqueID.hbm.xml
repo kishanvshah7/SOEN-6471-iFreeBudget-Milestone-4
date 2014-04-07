@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.UniqueID" table="TB_UNIQUEID">
+		<id name="id" column="id" type="long">
+			<generator class="identity"/>
+		</id>
+		<property name="uid" type="long"/>
+		<property name="timestamp" type="long" />
+		<property name="tableName" type="java.lang.String" />
+	</class>
+</hibernate-mapping>

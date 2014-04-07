@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.scheduler.db.entities.ScheduleConstraint" table="TB_SCHEDULECONSTRAINT">
+		<id name="id" column="id" type="long">
+			<generator class="native"/>
+		</id>
+		<property name="constraintType" type="int"/>
+		<property name="constraint" type="net.mjrz.scheduler.db.entities.BinaryBlobType">
+			<column name="constr" sql-type="LONGVARBINARY"/>
+		</property>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.NetWorthHistory" table="TB_NWHIST">
+		<id name="id" column="id" type="long">
+		</id>
+		<property name="uid"/>
+		<property name="date" type="java.util.Date" />
+		<property name="assets" type="java.math.BigDecimal"/>
+		<property name="liabs" type="java.math.BigDecimal"/>
+		<property name="netWorth" type="java.math.BigDecimal"/>
+		
+	</class>
+</hibernate-mapping>

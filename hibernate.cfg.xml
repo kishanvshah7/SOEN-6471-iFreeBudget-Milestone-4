@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <session-factory>
+
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+
+        <!-- JDBC connection pool (use the built-in) -->
+        <!-- <property name="connection.pool_size">10</property> -->
+        
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!-- Echo all executed SQL to stdout -->
+		<!-- <property name="show_sql">true</property> -->
+		<property name="show_sql">false</property>
+
+        <!-- Drop and re-create the database schema on startup -->
+        <!-- <property name="hbm2ddl.auto">create</property> -->
+        
+        <property name="hibernate.jdbc.batch_size">20</property>
+                
+		<!-- ECal mappings -->
+        <mapping resource="net/mjrz/fm/entity/beans/User.hbm.xml"/>
+        <mapping resource="net/mjrz/fm/entity/beans/Account.hbm.xml"/> 
+        <mapping resource="net/mjrz/fm/entity/beans/Transaction.hbm.xml"/>         
+        <mapping resource="net/mjrz/fm/entity/beans/NetWorthHistory.hbm.xml"/>         
+        <mapping resource="net/mjrz/fm/entity/beans/AccountCategory.hbm.xml"/>         
+        <mapping resource="net/mjrz/fm/entity/beans/Contact.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/ONLBDetails.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/Portfolio.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/PortfolioEntry.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/CurrencyMonitor.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/Alert.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/FutureTransaction.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/TT.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/Favourites.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/TxDecorator.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/BudgetedAccount.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/Budget.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/Prefs.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/AccountAddress.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/UniqueID.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/Attachment.hbm.xml"/>      
+        <mapping resource="net/mjrz/fm/entity/beans/AttachmentRef.hbm.xml"/>      
+        <mapping resource="net/mjrz/scheduler/db/entities/TaskEntity.hbm.xml"/>      
+        <mapping resource="net/mjrz/scheduler/db/entities/TaskSchedule.hbm.xml"/>
+        <mapping resource="net/mjrz/scheduler/db/entities/ScheduleConstraint.hbm.xml"/>
+        <mapping resource="net/mjrz/fm/entity/beans/IndexedEntityBean.hbm.xml"/>
+        <mapping resource="net/mjrz/fm/entity/beans/CategoryIconMap.hbm.xml"/>
+        <mapping resource="net/mjrz/fm/entity/beans/PwdHistory.hbm.xml"/>
+      
+    </session-factory>
+
+</hibernate-configuration>

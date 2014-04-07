@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.AccountAddress" table="TB_ACCOUNTADDRESS">
+		<id name="id" column="id" type="long">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="accountId" class="net.mjrz.fm.entity.beans.Account" column="accountId" unique="true"/>
+		<property name="contactId" type="long"/>
+		<property name="uid" type="long"/>
+</class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="UpdateCheckResponse" type="updateCheckResponse"/>
+
+  <xs:complexType name="updateCheckResponse">
+    <xs:sequence>
+      <xs:element name="updateRequired" type="xs:boolean"/>
+      <xs:element name="currentVersion" type="xs:string"/>
+      <xs:element name="latestVersion" type="xs:string"/>
+      <xs:element name="changeLog" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

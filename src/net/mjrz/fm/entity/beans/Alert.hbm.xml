@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.Alert" table="TB_ALERT">
+		<id name="id" column="id" type="long">
+		</id>
+		<property name="accountId" type="long"/>
+		<property name="alertType" type="int"/>
+		<property name="status" type="int"/>
+		<property name="conditional" type="java.lang.String">
+			<column name="conditional" sql-type="varchar(128)"/>
+		</property>
+		<property name="amount" type="java.math.BigDecimal"/>
+		<property name="range" type="java.lang.String">
+			<column name="range" sql-type="varchar(128)"/>
+		</property>
+	</class>
+</hibernate-mapping>

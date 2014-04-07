@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.PwdHistory" table="TB_PWDHIST">
+		<id name="id" column="id" type="long">
+           <generator class="increment"/>
+		</id>
+		<property name="uid" type="java.lang.String"/>
+		<property name="password" type="net.mjrz.fm.entity.beans.types.EString"> 
+			<column name="password" sql-type="varchar(512)" /> 
+		</property>
+		<property name="basePassword" type="net.mjrz.fm.entity.beans.types.EString"> 
+			<column name="bpassword" sql-type="varchar(512)" /> 
+		</property>
+	</class>
+</hibernate-mapping>

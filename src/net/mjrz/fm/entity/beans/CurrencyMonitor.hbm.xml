@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.CurrencyMonitor" table="TB_CURRENCYMON">
+		<id name="id" column="id" type="long">
+		</id>
+		<property name="ownerid" type="long"/>
+		<property name="country" type="java.lang.String"/>
+		<property name="code" type="java.lang.String"/>
+		<property name="symbol" type="java.lang.String"/>
+		<property name="lastUpdateTs" type="java.util.Date"/> 
+		<property name="lastUpdateValue" type="java.math.BigDecimal" />
+	</class>
+</hibernate-mapping>

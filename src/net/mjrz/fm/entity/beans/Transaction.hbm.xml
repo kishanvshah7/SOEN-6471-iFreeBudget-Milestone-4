@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.Transaction" table="TB_TRANSACTION">
+		<id name="txId" column="txId" type="long">
+		</id>
+		<property name="fitid"/>
+		<property name="fromAccountId"/>
+		<property name="toAccountId"/>
+		<property name="initiatorId"/> 
+
+		<property name="txAmount" type="net.mjrz.fm.entity.beans.types.EDouble">
+			<column name="txAmount" sql-type="varchar(512)" /> 
+		</property>
+
+		<property name="fromAccountEndingBal" type="net.mjrz.fm.entity.beans.types.EDouble">
+			<column name="fromAccountEndingBal" sql-type="varchar(512)" /> 
+		</property>
+
+		<property name="toAccountEndingBal" type="net.mjrz.fm.entity.beans.types.EDouble">
+			<column name="toAccountEndingBal" sql-type="varchar(512)" /> 
+		</property>
+
+		<property name="txNotes" type="net.mjrz.fm.entity.beans.types.EString">
+			<column name="txNotes" sql-type="varchar(512)" />
+		</property>
+
+		<property name="txNotesMarkup" type="net.mjrz.fm.entity.beans.types.EString">
+			<column name="txNotesMarkup" sql-type="varchar(1024)" />
+		</property>
+
+		<property name="txDate" type="java.util.Date"/> 		
+		<property name="createDate" type="java.util.Date"/> 		
+		<property name="txStatus" type="int"/> 		
+		<property name="activityBy" type="java.lang.String"/> 
+		<property name="parentTxId" type="java.lang.Long" />		
+	</class>
+</hibernate-mapping>

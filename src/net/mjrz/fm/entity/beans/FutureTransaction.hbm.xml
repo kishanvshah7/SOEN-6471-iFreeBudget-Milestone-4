@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.FutureTransaction" table="TB_FT">
+		<id name="id" column="id" type="long">
+		</id>
+		<property name="uid" type="long"/>
+		<property name="transactionId" type="long"/>
+		<property name="frequencyUnit" type="java.lang.String"/>
+		<property name="frequency" type="int"/>
+		<property name="nextRunDate" type="java.util.Date"/> 		
+		<property name="endDate" type="java.util.Date"/>
+		<property name="holdStatus" type="int"/>
+	</class>
+</hibernate-mapping>

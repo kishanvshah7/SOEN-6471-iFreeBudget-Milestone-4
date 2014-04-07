@@ -1,0 +1,130 @@
+/*******************************************************************************
+ * Copyright  
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+package net.mjrz.fm.entity;
+
+import java.util.Date;
+import java.util.List;
+
+import net.mjrz.fm.entity.utils.HibernateUtils;
+import net.mjrz.fm.utils.schedule.ScheduledTx;
+import net.mjrz.scheduler.db.SchedulerEntityManager;
+import net.mjrz.scheduler.db.entities.TaskEntity;
+import net.mjrz.scheduler.task.Task;
+
+import org.hibernate.Session;
+
+public class TaskEntityManager {
+
+	public String addTask(ScheduledTx t) throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtils.getSessionFactory().getCurrentSession();
+			s.beginTransaction();
+			TaskEntity te = new SchedulerEntityManager().addTask(s, t,
+					t.getTxId());
+
+			s.getTransaction().commit();
+			return null;
+		}
+		catch (Exception e) {
+			throw e;
+		}
+		finally {
+			if (s != null)
+				HibernateUtils.closeSession();
+		}
+	}
+
+	public void updateTask(Task t) throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtils.getSessionFactory().getCurrentSession();
+			s.beginTransaction();
+			Date last = t.getSchedule().getLastRunTime();
+			Date next = t.getSchedule().getNextRunTimeAfter(last);
+			new SchedulerEntityManager().updateTask(s, t.getName(), next, last);
+			s.getTransaction().commit();
+		}
+		catch (Exception e) {
+			throw e;
+		}
+		finally {
+			if (s != null)
+				HibernateUtils.closeSession();
+		}
+	}
+
+	public void deleteTask(String name) throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtils.getSessionFactory().getCurrentSession();
+			s.beginTransaction();
+
+			SchedulerEntityManager em = new SchedulerEntityManager();
+			TaskEntity te = em.getTask(s, name);
+			if (te != null) {
+				em.deleteTask(s, te);
+			}
+			s.getTransaction().commit();
+		}
+		catch (Exception e) {
+			throw e;
+		}
+		finally {
+			if (s != null)
+				HibernateUtils.closeSession();
+		}
+	}
+
+	public List<TaskEntity> getTasks() throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtils.getSessionFactory().getCurrentSession();
+			s.beginTransaction();
+			return new SchedulerEntityManager().getTasks(s);
+		}
+		finally {
+			if (s != null)
+				HibernateUtils.closeSession();
+		}
+	}
+
+	public TaskEntity getTask(String name) throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtils.getSessionFactory().getCurrentSession();
+			s.beginTransaction();
+			return new SchedulerEntityManager().getTask(s, name);
+		}
+		finally {
+			if (s != null)
+				HibernateUtils.closeSession();
+		}
+	}
+
+	public boolean taskExists(String name) throws Exception {
+		Session s = null;
+		try {
+			s = HibernateUtils.getSessionFactory().getCurrentSession();
+			s.beginTransaction();
+			return new SchedulerEntityManager().taskExists(s, name);
+		}
+		finally {
+			if (s != null)
+				HibernateUtils.closeSession();
+		}
+	}
+}

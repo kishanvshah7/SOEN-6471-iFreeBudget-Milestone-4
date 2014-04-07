@@ -1,0 +1,126 @@
+<synth>
+
+  <style id="panel"> 
+      <object id="background" class="net.mjrz.fm.ui.utils.BackgroundPainter"/>
+      <object class="javax.swing.plaf.ColorUIResource" id="startColor">
+        <int>30</int>
+        <int>123</int>
+        <int>235</int>
+      </object>
+      <defaultsProperty key="Panel.startBackground" type="idref" value="startColor"/>
+      <object class="javax.swing.plaf.ColorUIResource" id="endColor">
+        <int>1</int>
+        <int>20</int>
+        <int>80</int>
+      </object>
+      <defaultsProperty key="Panel.endBackground" type="idref" value="endColor"/>
+     <painter method="panelBackground" idref="background"/>
+  </style>
+  <bind style="panel" type="region" key="Panel"/>
+ 
+  <style id="tabbedpanetabarea">
+      <state>
+      </state>
+  </style>
+  <bind style="tabbedpanetabarea" type="region" key="TabbedPaneTabArea"/>
+
+  <style id="default">
+          <font name="Aharoni" size="14"/>
+          <state>
+             <color value="#FFFFFF" type="FOREGROUND"/>
+          </state>
+  </style>
+  <bind style="default" type="region" key=".*"/>   
+ 
+
+  <style id="textfield">
+    <state>
+       <font name="Aharoni" size="14"/>
+       <color value="#D2DFF2" type="BACKGROUND"/>
+       <color value="#000000" type="TEXT_FOREGROUND"/>
+    </state>
+    <imagePainter method="textFieldBorder" path="/images/textfield.png"
+                  sourceInsets="4 6 4 6" paintCenter="false"/>
+    <insets top="4" left="6" bottom="4" right="6"/>
+  </style>
+  <bind style="textfield" type="region" key="TextField"/>
+   
+ 
+  <style id="button">
+      <state>
+        <imagePainter method="buttonBackground" path="/images/button.png"
+                      sourceInsets="9 10 9 12" paintCenter="true" stretch="true"/>
+        <insets top="9" left="10" bottom="9" right="12"/>
+        <font name="Aharoni" size="16"/>
+        <color type="TEXT_FOREGROUND" value="#FFFFFF"/>
+      </state>
+      <state value="MOUSE_OVER">   
+        <imagePainter method="buttonBackground" path="/images/button_on.png"
+                      sourceInsets="9 10 9 12" paintCenter="true" stretch="true"/>
+        <insets top="9" left="10" bottom="9" right="12"/>
+        <color type="TEXT_FOREGROUND" value="#FFFFFF"/>
+      </state>
+      <state value="PRESSED">
+        <imagePainter method="buttonBackground" path="/images/button_press.png"
+                      sourceInsets="10 12 8 9" paintCenter="true" stretch="true"/>
+        <insets top="10" left="12" bottom="8" right="9"/>
+        <color type="TEXT_FOREGROUND" value="#FFFFFF"/>     
+      </state>
+    <property key="Button.margin" type="insets" value="0 0 0 0"/>
+  </style>
+  <bind style="button" type="region" key="Button"/>
+     
+     
+  <style id="checkbox">
+        <imageIcon id="check_off" path="/images/checkbox_off.png"/>
+        <imageIcon id="check_on" path="/images/checkbox_on.png"/>
+      <property key="CheckBox.icon" value="check_off"/>
+      <state value="SELECTED">  
+         <property key="CheckBox.icon" value="check_on"/>
+      </state>
+  </style>
+  <bind style="checkbox" type="region" key="Checkbox"/>     
+ 
+  <style id="table">      
+       <opaque value="TRUE"/>
+       <object id="background" class="net.mjrz.fm.ui.utils.BackgroundPainter"/>                      
+       <state>
+           <insets bottom="5" left="5" right="5" top="5"/>          
+           <property key="Table.rendererUseTableColors" type="boolean" value="true"/>
+           <property key="Table.rendererUseUIBorder" type="boolean" value="false"/>
+           <property key="Table.rowHeight" type="integer" value="25"/>
+           <font name="Geneva" size="12"/>            
+           <painter method="tableBackground" idref="background"/>
+       </state>
+       <state value="SELECTED">
+           <color value="BLACK" type="TEXT_FOREGROUND"/>
+           <color value="#c0c0c0" type="TEXT_BACKGROUND"/>
+           <color value="#eaeaea" type="BACKGROUND"/>
+           <painter method="tableBackground" idref="background"/>
+       </state>
+       <painter method="scrollPaneBackground" idref="background"/>   
+       <painter method="tableHeaderBackground" idref="background"/>   
+   </style>
+   <bind style="table" type="region" key="Table"/> 
+   <bind style="table" type="region" key="TableHeader"/> 
+  
+  <style id="style">
+    <object id="background" class="net.mjrz.fm.ui.utils.BackgroundPainter"/> 
+    <opaque value="FALSE"/>
+    <state>
+      <color value="BLACK" type="TEXT_FOREGROUND"/>
+      <color value="BLUE" type="TEXT_BACKGROUND"/>
+      <color value="BLACK" type="BACKGROUND"/>
+    </state>
+    <state value="SELECTED">
+      <color value="GREEN" type="TEXT_FOREGROUND"/>
+      <color value="BLUE" type="TEXT_BACKGROUND"/>
+    </state>
+    <painter method="scrollPaneBackground" idref="background"/>   
+    <painter method="listBackground" idref="background"/>   
+    <painter method="viewportBackground" idref="background"/>   
+  </style>
+  <bind style="style" type="region" key="List"/> 
+  <bind style="style" type="region" key="ScrollPane"/>
+  <bind style="style" type="region" key="ViewPort"/>
+</synth>

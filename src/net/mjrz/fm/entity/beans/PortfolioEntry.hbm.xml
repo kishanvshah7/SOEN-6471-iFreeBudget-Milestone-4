@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.PortfolioEntry" table="TB_PORTFOLIOENTRIES">
+		<id name="id" column="id" type="long">
+		</id>
+		<property name="portfolioId" type="long"/>
+		<property name="symbol" type="java.lang.String"/>
+		<property name="exchange" type="java.lang.String"/>
+		<property name="name" type="java.lang.String"/> 
+		<property name="numShares" type="java.math.BigDecimal"/>
+		<property name="pricePerShare" type="java.math.BigDecimal"/> 
+		<property name="costBasis" type="java.math.BigDecimal"/>
+		<property name="daysGain" type="java.math.BigDecimal"/> 
+		<property name="change" type="java.lang.String"/> 
+		<property name="lastUpdateTS" type="java.util.Date"/> 
+		<property name="market" type="java.lang.String"/> 
+		<property name="currencyLocale" type="java.lang.String"/>
+		<property name="sf" type="int"/>
+	</class>
+</hibernate-mapping>

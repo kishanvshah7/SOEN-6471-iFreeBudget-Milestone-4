@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.TT" table="TB_TT">
+		<id name="txId" column="txId" type="long">
+		</id>
+		<property name="fitid" type="java.lang.String"/>
+		<property name="fromAccountId" type="long"/>
+		<property name="toAccountId" type="long"/>
+		<property name="initiatorId" type="long"/> 
+		<property name="txAmount" type="java.math.BigDecimal"/>
+		<property name="fromAccountEndingBal" type="java.math.BigDecimal"/>
+		<property name="toAccountEndingBal" type="java.math.BigDecimal"/>
+		<property name="txNotes" type="java.lang.String"/>
+		<property name="txNotesMarkup" type="java.lang.String"/>
+		<property name="txDate" type="java.util.Date"/> 		
+		<property name="createDate" type="java.util.Date"/> 		
+		<property name="txStatus" type="int"/> 		
+		<property name="activityBy" type="java.lang.String"/> 		
+		<property name="fromName" type="java.lang.String"/>
+		<property name="toName" type="java.lang.String"/>
+		<property name="parentTxId" type="java.lang.Long" />
+		<property name="isParent" type="java.lang.Integer" />
+	</class>
+</hibernate-mapping>

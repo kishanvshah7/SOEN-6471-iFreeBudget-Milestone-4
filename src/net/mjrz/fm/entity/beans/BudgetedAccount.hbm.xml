@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.BudgetedAccount" table="TB_BUDGETEDACCOUNT">
+		<id name="id" column="id" type="long">
+           <generator class="increment"/>
+   		</id>
+		<property name="accountId" type="long"/>
+		<property name="allocatedAmount" type="java.math.BigDecimal"/>
+	</class>
+</hibernate-mapping>

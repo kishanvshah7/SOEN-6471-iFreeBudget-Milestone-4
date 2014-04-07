@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="net.mjrz.fm.entity.beans.ONLBDetails" table="TB_ONLB">
+		<id name="id" column="id" type="long">
+		</id>
+
+		<property name="accountId" type="long"/>
+
+		<property name="url" type="net.mjrz.fm.entity.beans.types.EString">
+			<column name="url" sql-type="varchar(512)" />
+		</property>
+
+		<property name="org" type="net.mjrz.fm.entity.beans.types.EString">
+			<column name="org" sql-type="varchar(512)" />
+		</property>		
+
+		<property name="fid" type="net.mjrz.fm.entity.beans.types.EString"> 
+			<column name="fid" sql-type="varchar(512)" />
+		</property>
+
+		<property name="user" type="net.mjrz.fm.entity.beans.types.EString"> 
+			<column name="user" sql-type="varchar(512)" />
+		</property>		
+
+		<property name="password" type="net.mjrz.fm.entity.beans.types.EString">
+			<column name="password" sql-type="varchar(512)" />
+		</property>		 
+
+		<property name="type" type="net.mjrz.fm.entity.beans.types.EString"> 		
+			<column name="type" sql-type="varchar(512)" />
+		</property>
+
+		<property name="orgId" type="net.mjrz.fm.entity.beans.types.EString"> 		
+			<column name="orgId" sql-type="varchar(512)" />
+		</property>
+	</class>
+</hibernate-mapping>
