@@ -43,7 +43,7 @@ import org.hibernate.Session;
  * @author iFreeBudget ifreebudget@gmail.com
  * 
  */
-public class AddTransactionAction {
+public class AddTransactionAction  extends TransactionValidation{
 	FManEntityManager em = null;
 
 	public AddTransactionAction() {

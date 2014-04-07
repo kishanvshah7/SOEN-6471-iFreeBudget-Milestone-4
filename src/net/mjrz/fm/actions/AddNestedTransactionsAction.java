@@ -50,7 +50,7 @@ import org.hibernate.Session;
  * @author iFreeBudget ifreebudget@gmail.com
  * 
  */
-public class AddNestedTransactionsAction {
+public class AddNestedTransactionsAction  extends TransactionValidation {
 	private static Logger logger = Logger
 			.getLogger(AddNestedTransactionsAction.class.getName());
 	FManEntityManager em = null;
