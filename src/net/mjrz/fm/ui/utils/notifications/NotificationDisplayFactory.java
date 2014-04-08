@@ -19,13 +19,13 @@ import net.mjrz.fm.ui.FinanceManagerUI;
 import net.mjrz.fm.ui.utils.notifications.types.AlertNotification;
 import net.mjrz.fm.ui.utils.notifications.types.MissedTxNotification;
 import net.mjrz.fm.ui.utils.notifications.types.ScheduledTxNotification;
-import net.mjrz.fm.ui.utils.notifications.types.UINotification;
+import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
 import net.mjrz.fm.ui.utils.notifications.types.UpdateCheckNotification;
 
 public class NotificationDisplayFactory {
 
 	public static NotificationDisplay getNotificationDisplay(
-			final UINotification notification, final FinanceManagerUI frame) {
+			final INotificationElement notification, final FinanceManagerUI frame) {
 		if (notification instanceof AlertNotification) {
 			return new AlertNotificationFrame(notification, frame);
 		}

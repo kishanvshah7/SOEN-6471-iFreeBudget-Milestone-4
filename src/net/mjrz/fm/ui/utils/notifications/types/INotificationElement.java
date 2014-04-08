@@ -18,42 +18,14 @@ package net.mjrz.fm.ui.utils.notifications.types;
 import net.mjrz.fm.ui.utils.notifications.INotificationElementVisitor;
 import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
 
-public class UpdateCheckNotification implements INotificationElement {
+public interface INotificationElement {
 	public static final int INFO = 1;
 	public static final int WARN = 2;
 	public static final int ERROR = 3;
 
-	private int id;
-	private int notificationType;
-	private String message;
+	public int getNotificationType();
 
-	private UpdateCheckNotification() {
-	}
-
-	public UpdateCheckNotification(String message) {
-		notificationType = INFO;
-		this.message = message;
-	}
-
-	public UpdateCheckNotification(int type, String msg) {
-		notificationType = type;
-		message = msg;
-	}
-
-	public int getNotificationType() {
-		return this.notificationType;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public String toString() {
-		return notificationType + " - " + message;
-	}
-
-    @Override
-    public NotificationDisplay accept(INotificationElementVisitor visitor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+	public String getMessage();
+        
+                       NotificationDisplay accept(INotificationElementVisitor visitor);
 }

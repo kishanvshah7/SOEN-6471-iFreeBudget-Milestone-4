@@ -18,8 +18,10 @@ package net.mjrz.fm.ui.utils.notifications.types;
 import static net.mjrz.fm.utils.Messages.tr;
 import net.mjrz.fm.entity.FManEntityManager;
 import net.mjrz.fm.entity.beans.Alert;
+import net.mjrz.fm.ui.utils.notifications.INotificationElementVisitor;
+import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
 
-public class AlertNotification implements UINotification {
+public class AlertNotification implements INotificationElement {
 	private int id;
 	private int notificationType;
 	private String message;
@@ -70,4 +72,9 @@ public class AlertNotification implements UINotification {
 	public String toString() {
 		return notificationType + " - " + message;
 	}
+
+    @Override
+    public NotificationDisplay accept(INotificationElementVisitor visitor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

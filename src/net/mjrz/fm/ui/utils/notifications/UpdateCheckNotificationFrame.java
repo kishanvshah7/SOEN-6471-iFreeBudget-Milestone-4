@@ -44,7 +44,7 @@ import net.mjrz.fm.ui.FinanceManagerUI;
 import net.mjrz.fm.ui.utils.NotificationHandler;
 import net.mjrz.fm.ui.utils.TimerButton;
 import net.mjrz.fm.ui.utils.UIDefaults;
-import net.mjrz.fm.ui.utils.notifications.types.UINotification;
+import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
 import net.mjrz.fm.utils.MiscUtils;
 import net.mjrz.fm.utils.UpdateCheck;
 
@@ -63,7 +63,7 @@ public class UpdateCheckNotificationFrame extends JFrame implements
 	private java.text.MessageFormat form = new java.text.MessageFormat(
 			tr("New version \"{0}\" is available."));
 
-	public UpdateCheckNotificationFrame(UINotification notification,
+	public UpdateCheckNotificationFrame(INotificationElement notification,
 			FinanceManagerUI frame) {
 		this.frame = frame;
 		initialize();

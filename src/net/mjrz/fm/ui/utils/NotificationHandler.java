@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
 import net.mjrz.fm.ui.FinanceManagerUI;
 import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
 import net.mjrz.fm.ui.utils.notifications.NotificationDisplayFactory;
-import net.mjrz.fm.ui.utils.notifications.types.UINotification;
+import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
 
 import org.apache.log4j.Logger;
 
@@ -36,7 +36,7 @@ public class NotificationHandler implements Runnable {
 
 	private int queueStatus;
 	private FinanceManagerUI frame;
-	private LinkedBlockingQueue<UINotification> notificationQueue;
+	private LinkedBlockingQueue<INotificationElement> notificationQueue;
 	private static Logger logger = Logger.getLogger(NotificationHandler.class
 			.getName());
 
@@ -64,11 +64,11 @@ public class NotificationHandler implements Runnable {
 
 	private NotificationHandler(FinanceManagerUI frame) {
 		this.frame = frame;
-		notificationQueue = new LinkedBlockingQueue<UINotification>();
+		notificationQueue = new LinkedBlockingQueue<INotificationElement>();
 		this.queueStatus = QUEUE_RUNNING;
 	}
 
-	private void showNotificationFrame(final UINotification notif) {
+	private void showNotificationFrame(final INotificationElement notif) {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				public void run() {
@@ -95,7 +95,7 @@ public class NotificationHandler implements Runnable {
 					Thread.sleep(100);
 					continue;
 				}
-				final UINotification notif = notificationQueue.take();
+				final INotificationElement notif = notificationQueue.take();
 				showNotificationFrame(notif);
 			}
 			catch (InterruptedException e) {
@@ -104,7 +104,7 @@ public class NotificationHandler implements Runnable {
 		}
 	}
 
-	private synchronized void enqueue(UINotification notification) {
+	private synchronized void enqueue(INotificationElement notification) {
 		if (queueStatus != NotificationHandler.QUEUE_RUNNING) {
 			return;
 		}
@@ -122,7 +122,7 @@ public class NotificationHandler implements Runnable {
 			instance.setQueueStatus(NotificationHandler.QUEUE_RUNNING);
 	}
 
-	public static void addToQueue(UINotification notification) {
+	public static void addToQueue(INotificationElement notification) {
 		/*
 		 * Drop all notifications if the main UI is not inited completely. If
 		 * the main window is inited, NotificationHandler will be inited also

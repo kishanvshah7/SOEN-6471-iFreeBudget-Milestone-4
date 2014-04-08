@@ -152,7 +152,7 @@ import net.mjrz.fm.ui.utils.TipBrowser;
 import net.mjrz.fm.ui.utils.TransactionTableModel;
 import net.mjrz.fm.ui.utils.TxHistoryTable;
 import net.mjrz.fm.ui.utils.UIDefaults;
-import net.mjrz.fm.ui.utils.notifications.types.UINotification;
+import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
 import net.mjrz.fm.ui.utils.notifications.types.UpdateCheckNotification;
 import net.mjrz.fm.ui.wizards.BudgetCreatorWizard;
 import net.mjrz.fm.ui.wizards.TransactionWizard;
@@ -2187,7 +2187,7 @@ public class FinanceManagerUI extends JFrame implements Observer {
 			try {
 				boolean show = get();
 				if (show) {
-					UINotification notif = new UpdateCheckNotification(
+					INotificationElement notif = new UpdateCheckNotification(
 							"Do you want to check for updated version of iFreeBudget?");
 					NotificationHandler.addToQueue(notif);
 				}
