@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package net.mjrz.fm.ui.utils.notifications;
+package net.mjrz.fm.ui.utils.notifications.types;
 
-import net.mjrz.fm.ui.FinanceManagerUI;
-import net.mjrz.fm.ui.utils.notifications.types.AlertNotification;
-import net.mjrz.fm.ui.utils.notifications.types.MissedTxNotification;
-import net.mjrz.fm.ui.utils.notifications.types.ScheduledTxNotification;
-import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
-import net.mjrz.fm.ui.utils.notifications.types.UpdateCheckNotification;
+import net.mjrz.fm.ui.utils.notifications.INotificationElementVisitor;
+import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
 
-public class NotificationDisplayFactory {
+public interface INotificationElement {
+	public static final int INFO = 1;
+	public static final int WARN = 2;
+	public static final int ERROR = 3;
 
-	public static NotificationDisplay getNotificationDisplay(
-			final INotificationElement notification, final FinanceManagerUI frame) {
-		return notification.accept(new NotificationElementVisitor(frame));
-	}
+	public int getNotificationType();
 
+	public String getMessage();
+        
+                       NotificationDisplay accept(INotificationElementVisitor visitor);
 }

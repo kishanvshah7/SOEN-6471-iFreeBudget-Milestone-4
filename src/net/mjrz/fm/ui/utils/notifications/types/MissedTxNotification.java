@@ -18,8 +18,10 @@ package net.mjrz.fm.ui.utils.notifications.types;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import net.mjrz.fm.ui.utils.notifications.INotificationElementVisitor;
+import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
 
-public class MissedTxNotification implements UINotification {
+public class MissedTxNotification implements INotificationElement {
 	private int notificationType;
 	private String message;
 	private Map<String, List<Date>> missed;
@@ -59,4 +61,9 @@ public class MissedTxNotification implements UINotification {
 	public void setMissed(Map<String, List<Date>> missed) {
 		this.missed = missed;
 	}
+
+    @Override
+    public NotificationDisplay accept(INotificationElementVisitor visitor) {
+        return visitor.visit(this);//To change body of generated methods, choose Tools | Templates.
+    }
 }

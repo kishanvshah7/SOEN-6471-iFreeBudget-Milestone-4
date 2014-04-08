@@ -32,7 +32,7 @@ import javax.swing.border.LineBorder;
 
 import net.mjrz.fm.ui.FinanceManagerUI;
 import net.mjrz.fm.ui.utils.NotificationHandler;
-import net.mjrz.fm.ui.utils.notifications.types.UINotification;
+import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
 
 public class AlertNotificationFrame extends JFrame implements
 		NotificationDisplay {
@@ -40,7 +40,7 @@ public class AlertNotificationFrame extends JFrame implements
 	private JLabel message = null;
 	private FinanceManagerUI frame = null;
 
-	public AlertNotificationFrame(UINotification notification,
+	public AlertNotificationFrame(INotificationElement notification,
 			FinanceManagerUI frame) {
 		this.frame = frame;
 		initialize();

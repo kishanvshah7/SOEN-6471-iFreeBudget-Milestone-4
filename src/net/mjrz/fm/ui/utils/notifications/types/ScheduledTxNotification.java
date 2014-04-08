@@ -15,7 +15,10 @@
  ******************************************************************************/
 package net.mjrz.fm.ui.utils.notifications.types;
 
-public class ScheduledTxNotification implements UINotification {
+import net.mjrz.fm.ui.utils.notifications.INotificationElementVisitor;
+import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
+
+public class ScheduledTxNotification implements INotificationElement {
 	private long txId;
 	private int notificationType;
 	private String message;
@@ -55,4 +58,9 @@ public class ScheduledTxNotification implements UINotification {
 	public void setTxId(long txId) {
 		this.txId = txId;
 	}
+
+    @Override
+    public NotificationDisplay accept(INotificationElementVisitor visitor) {
+        return visitor.visit(this);//To change body of generated methods, choose Tools | Templates.
+    }
 }

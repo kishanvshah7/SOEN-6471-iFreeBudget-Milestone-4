@@ -15,7 +15,10 @@
  ******************************************************************************/
 package net.mjrz.fm.ui.utils.notifications.types;
 
-public class UpdateCheckNotification implements UINotification {
+import net.mjrz.fm.ui.utils.notifications.INotificationElementVisitor;
+import net.mjrz.fm.ui.utils.notifications.NotificationDisplay;
+
+public class UpdateCheckNotification implements INotificationElement {
 	public static final int INFO = 1;
 	public static final int WARN = 2;
 	public static final int ERROR = 3;
@@ -48,4 +51,9 @@ public class UpdateCheckNotification implements UINotification {
 	public String toString() {
 		return notificationType + " - " + message;
 	}
+
+    @Override
+    public NotificationDisplay accept(INotificationElementVisitor visitor) {
+        return visitor.visit(this);//To change body of generated methods, choose Tools | Templates.
+    }
 }

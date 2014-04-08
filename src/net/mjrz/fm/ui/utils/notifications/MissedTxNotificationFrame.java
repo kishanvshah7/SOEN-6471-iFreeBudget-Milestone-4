@@ -33,7 +33,7 @@ import net.mjrz.fm.ui.FinanceManagerUI;
 import net.mjrz.fm.ui.utils.NotificationHandler;
 import net.mjrz.fm.ui.utils.TimerButton;
 import net.mjrz.fm.ui.utils.notifications.types.MissedTxNotification;
-import net.mjrz.fm.ui.utils.notifications.types.UINotification;
+import net.mjrz.fm.ui.utils.notifications.types.INotificationElement;
 
 import org.apache.log4j.Logger;
 
@@ -44,12 +44,12 @@ public class MissedTxNotificationFrame extends JFrame implements
 	private JLabel message = null;
 	private FinanceManagerUI frame = null;
 	private JButton ok, close;
-	private UINotification notif;
+	private INotificationElement notif;
 
 	private static Logger logger = Logger
 			.getLogger(MissedTxNotificationFrame.class.getName());
 
-	public MissedTxNotificationFrame(UINotification notification,
+	public MissedTxNotificationFrame(INotificationElement notification,
 			FinanceManagerUI frame) {
 		this.frame = frame;
 		this.notif = notification;
