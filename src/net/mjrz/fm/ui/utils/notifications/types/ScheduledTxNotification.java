@@ -61,6 +61,6 @@ public class ScheduledTxNotification implements INotificationElement {
 
     @Override
     public NotificationDisplay accept(INotificationElementVisitor visitor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return visitor.visit(this);//To change body of generated methods, choose Tools | Templates.
     }
 }
