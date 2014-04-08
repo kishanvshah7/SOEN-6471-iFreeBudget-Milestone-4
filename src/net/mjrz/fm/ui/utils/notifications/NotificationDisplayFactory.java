@@ -26,19 +26,7 @@ public class NotificationDisplayFactory {
 
 	public static NotificationDisplay getNotificationDisplay(
 			final INotificationElement notification, final FinanceManagerUI frame) {
-		if (notification instanceof AlertNotification) {
-			return new AlertNotificationFrame(notification, frame);
-		}
-		if (notification instanceof UpdateCheckNotification) {
-			return new UpdateCheckNotificationFrame(notification, frame);
-		}
-		if (notification instanceof ScheduledTxNotification) {
-			return new ScheduledTxNotificationFrame(notification, frame);
-		}
-		if (notification instanceof MissedTxNotification) {
-			return new MissedTxNotificationFrame(notification, frame);
-		}
-		return null;
+		return notification.accept(new NotificationElementVisitor(frame));
 	}
 
 }
